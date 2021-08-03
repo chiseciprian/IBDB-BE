@@ -1,10 +1,7 @@
 package ro.fasttrackit.ratingapp.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.fasttrackit.ratingapp.dto.Rating;
 import ro.fasttrackit.ratingapp.model.mapper.RatingMappers;
 import ro.fasttrackit.ratingapp.service.RatingService;
@@ -21,5 +18,16 @@ public class RatingController {
     @GetMapping("book/{bookId}")
     List<Rating> getRatingsByBookId(@PathVariable String bookId) {
         return mappers.toApi(ratingService.getRatings(bookId));
+    }
+
+    @PostMapping
+    Rating addRating(@RequestBody Rating rating) {
+        return mappers.toApi(ratingService.addRating(mappers.toDb(rating)));
+
+    }
+
+    @DeleteMapping
+    void deleteRating(@PathVariable String ratingId) {
+        ratingService.deleteRating(ratingId);
     }
 }

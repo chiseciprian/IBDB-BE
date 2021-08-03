@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="rating-service" />
+        <module name="api-gateway" />
         <module name="fasttrackit-commons" />
         <module name="book-service" />
         <module name="rating-api-client" />
@@ -14,6 +15,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="api-gateway" target="15" />
       <module name="book-api-client" target="15" />
       <module name="book-app" target="15" />
       <module name="book-service" target="11" />
@@ -25,6 +27,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-gateway" options="-parameters" />
       <module name="book-service" options="-parameters" />
       <module name="rating-service" options="-parameters" />
     </option>

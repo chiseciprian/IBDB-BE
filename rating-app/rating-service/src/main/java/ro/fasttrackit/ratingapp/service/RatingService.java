@@ -13,6 +13,15 @@ public class RatingService {
     private final RatingRepository repository;
 
     public List<RatingEntity> getRatings(String bookId) {
-        return repository.findAll();
+        return repository.findAllByBookId(bookId);
+    }
+
+    public RatingEntity addRating(RatingEntity newRating) {
+        newRating.setBookId(null);
+        return repository.save(newRating);
+    }
+
+    public void deleteRating(String ratingId) {
+        repository.deleteById(ratingId);
     }
 }
