@@ -26,7 +26,7 @@ public class RatingController {
 
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{ratingId}")
     void deleteRating(@PathVariable String ratingId) {
         ratingService.deleteRating(ratingId);
     }

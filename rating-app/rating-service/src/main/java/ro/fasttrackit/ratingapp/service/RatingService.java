@@ -17,7 +17,7 @@ public class RatingService {
     }
 
     public RatingEntity addRating(RatingEntity newRating) {
-        newRating.setBookId(null);
+        newRating.setRatingId(null);
         return repository.save(newRating);
     }
 
