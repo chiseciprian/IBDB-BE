@@ -17,9 +17,9 @@ public class ApiGatewayApplication {
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("books", r -> r.path("/books")
-                        .uri("http://localhost:9001/books"))
+                        .uri("http://localhost:9011/books"))
                 .route("books", r -> r.path("/books/**")
-                        .uri("http://localhost:9001/books/**"))
+                        .uri("http://localhost:9011/books/**"))
                 .route("ratings", r -> r.path("/ratings")
                         .uri("http://localhost:9002/ratings"))
                 .route("ratings", r -> r.path("/ratings/**")
