@@ -2,6 +2,7 @@ package ro.fasttrackit.ratingapp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ro.fasttrackit.ratingapp.model.RatingEntity;
 import ro.fasttrackit.ratingapp.repository.RatingRepository;
 
@@ -23,5 +24,10 @@ public class RatingService {
 
     public void deleteRating(String ratingId) {
         repository.deleteById(ratingId);
+    }
+
+    @Transactional
+    public void deleteAllRatingsByBookId(String bookId) {
+        repository.deleteAllByBookId(bookId);
     }
 }

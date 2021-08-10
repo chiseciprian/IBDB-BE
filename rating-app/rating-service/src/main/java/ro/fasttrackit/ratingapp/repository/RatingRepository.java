@@ -8,4 +8,6 @@ import java.util.List;
 public interface RatingRepository extends MongoRepository<RatingEntity, String> {
 
     List<RatingEntity> findAllByBookId(String bookId);
+
+    void deleteAllByBookId(String bookId);
 }

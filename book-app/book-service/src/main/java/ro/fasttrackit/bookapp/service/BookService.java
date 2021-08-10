@@ -12,6 +12,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BookService {
     private final BookRepository repository;
+    private final BookNotifications bookNotifications;
 
     public List<BookEntity> getBooks() {
         return repository.findAll();
@@ -28,5 +29,6 @@ public class BookService {
 
     public void deleteBook(String bookId) {
         repository.deleteById(bookId);
+        bookNotifications.notifyBookDeleted(bookId);
     }
 }
