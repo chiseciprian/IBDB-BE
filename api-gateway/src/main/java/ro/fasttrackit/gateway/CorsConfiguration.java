@@ -43,6 +43,7 @@ public class CorsConfiguration {
                 headers.add("Access-Control-Allow-Headers", ALLOWED_HEADERS);
                 headers.add("Access-Control-Expose-Headers", ALLOWED_EXPOSE);
                 headers.add("Access-Control-Allow-Credentials", "true");
+                headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
                 if (request.getMethod() == HttpMethod.OPTIONS) {
                     response.setStatusCode(HttpStatus.OK);
                     return Mono.empty();
