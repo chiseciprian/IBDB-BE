@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Timestamp;
-
 @Document("rating")
 @Data
 @Builder
@@ -21,6 +19,6 @@ public class RatingEntity {
     private String userName;
     private String title;
     private String message;
-    private Timestamp date;
+    private long date;
     private Integer stars;
 }

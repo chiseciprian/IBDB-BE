@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.Builder;
 import lombok.Value;
 
-import java.sql.Timestamp;
-
 @Value
 @Builder
 @JsonDeserialize(builder = Rating.RatingBuilder.class)
@@ -16,7 +14,7 @@ public class Rating {
     private String userName;
     private String title;
     private String message;
-    private Timestamp date;
+    private long date;
     private Integer stars;
 
     @JsonPOJOBuilder(withPrefix = "")

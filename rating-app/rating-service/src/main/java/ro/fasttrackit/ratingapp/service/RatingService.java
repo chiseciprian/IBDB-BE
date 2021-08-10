@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.fasttrackit.ratingapp.model.RatingEntity;
 import ro.fasttrackit.ratingapp.repository.RatingRepository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -19,6 +20,7 @@ public class RatingService {
 
     public RatingEntity addRating(RatingEntity newRating) {
         newRating.setRatingId(null);
+        newRating.setDate(new Timestamp(System.currentTimeMillis()).getTime());
         return repository.save(newRating);
     }
 
