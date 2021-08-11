@@ -15,7 +15,6 @@ import static ro.fasttrackit.bookapp.events.BookEventType.DELETED;
 @RequiredArgsConstructor
 public class BookNotifications {
     private final RabbitTemplate rabbit;
-    private final BookMappers mapper;
     private final FanoutExchange bookExchange;
 
     public void notifyBookDeleted(String bookId) {
