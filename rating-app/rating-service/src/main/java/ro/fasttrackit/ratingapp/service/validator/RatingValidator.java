@@ -39,7 +39,7 @@ public class RatingValidator {
             return Optional.of(new ValidationException("Stars cannot be null"));
         } else if (ratingEntity.getStars() < 0) {
             return Optional.of(new ValidationException("Stars cannot be smaller than 0"));
-        } else if (ratingEntity.getStars() < 5) {
+        } else if (ratingEntity.getStars() > 5) {
             return Optional.of(new ValidationException("Stars cannot be higher than 5"));
         } else if (!checkBookExist(ratingEntity.getBookId())) {
             return Optional.of(new ValidationException("Book with id " + ratingEntity.getBookId() + " doesn't exist"));

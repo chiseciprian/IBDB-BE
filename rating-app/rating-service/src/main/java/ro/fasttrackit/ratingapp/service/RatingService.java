@@ -1,6 +1,7 @@
 package ro.fasttrackit.ratingapp.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.fasttrackit.exceptions.ResourceNotFoundException;
@@ -16,6 +17,7 @@ import java.util.List;
 public class RatingService {
     private final RatingRepository repository;
     private final RatingValidator ratingValidator;
+    private final SimpMessagingTemplate messagingTemplate;
 
     public List<RatingEntity> getRatings(String bookId) {
         return repository.findAllByBookId(bookId);
@@ -25,12 +27,14 @@ public class RatingService {
         newRating.setRatingId(null);
         newRating.setDate(new Timestamp(System.currentTimeMillis()).getTime());
         ratingValidator.validateRating(newRating);
+        messagingTemplate.convertAndSend("rating-service", "rating-created");
         return repository.save(newRating);
     }
 
     public void deleteRating(String ratingId) {
         RatingEntity ratingEntity = repository.findById(ratingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Rating with id " + ratingId + " is not found"));
+        messagingTemplate.convertAndSend("rating-service", "rating-deleted");
         repository.delete(ratingEntity);
     }
 

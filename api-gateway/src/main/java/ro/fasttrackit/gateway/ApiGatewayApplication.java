@@ -24,10 +24,10 @@ public class ApiGatewayApplication {
                         .uri("http://localhost:9002/ratings"))
                 .route("ratings", r -> r.path("/ratings/**")
                         .uri("http://localhost:9002/ratings/**"))
-//                .route("websocket_http_route", r -> r.path("/websocket/**")
-//                        .uri("http://localhost:9000"))
-//                .route("websocket_route", r -> r.path("/websocket")
-//                        .uri("ws://localhost:9000"))
+                .route("websocket_http_route", r -> r.path("/websocket/**")
+                        .uri("http://localhost:9002"))
+                .route("websocket_route", r -> r.path("/websocket")
+                        .uri("ws://localhost:9002"))
                 .build();
     }
 }
