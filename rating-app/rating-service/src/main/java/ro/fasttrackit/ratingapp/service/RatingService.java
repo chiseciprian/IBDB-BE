@@ -51,6 +51,13 @@ public class RatingService {
         repository.deleteAllByBookId(bookId);
     }
 
+    public Double getRatingAverageByBookId(String bookId) {
+        return repository.findAllByBookId(bookId).stream()
+                .mapToDouble(RatingEntity::getStars)
+                .average()
+                .orElse(0);
+    }
+
     private void replaceRating(RatingEntity dbEntity, RatingEntity updatedRating) {
         dbEntity.setUserName(updatedRating.getUserName());
         dbEntity.setTitle(updatedRating.getTitle());

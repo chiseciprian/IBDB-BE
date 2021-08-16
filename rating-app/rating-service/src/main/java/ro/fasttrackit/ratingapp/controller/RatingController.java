@@ -20,6 +20,11 @@ public class RatingController {
         return mappers.toApi(ratingService.getRatings(bookId));
     }
 
+    @GetMapping("/average/book/{bookId}")
+    Double getRatingAverageByBookId(@PathVariable String bookId) {
+        return ratingService.getRatingAverageByBookId(bookId);
+    }
+
     @PostMapping
     Rating addRating(@RequestBody Rating rating) {
         return mappers.toApi(ratingService.addRating(mappers.toDb(rating)));
