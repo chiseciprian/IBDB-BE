@@ -24,11 +24,11 @@ public class BookValidator {
     private Optional<ValidationException> validate(BookEntity bookEntity) {
         if (bookEntity.getTitle() == null) {
             return Optional.of(new ValidationException("Title cannot be null"));
-        } else if (bookRepository.findByTitle(bookEntity.getTitle())) {
+        } else if (bookRepository.findByTitle(bookEntity.getTitle()).isPresent()) {
             return Optional.of(new ValidationException("Book with this title already exist"));
         } else if (bookEntity.getDescription() == null) {
             return Optional.of(new ValidationException("Description cannot be null"));
-        } else if (bookEntity.getAuthors().size() > 0) {
+        } else if (bookEntity.getAuthors().size() == 0) {
             return Optional.of(new ValidationException("Please add an author"));
         } else {
             return empty();
