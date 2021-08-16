@@ -5,6 +5,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.fasttrackit.exceptions.ResourceNotFoundException;
+import ro.fasttrackit.ratingapp.dto.Rating;
 import ro.fasttrackit.ratingapp.model.RatingEntity;
 import ro.fasttrackit.ratingapp.repository.RatingRepository;
 import ro.fasttrackit.ratingapp.service.validator.RatingValidator;
@@ -41,5 +42,12 @@ public class RatingService {
     @Transactional
     public void deleteAllRatingsByBookId(String bookId) {
         repository.deleteAllByBookId(bookId);
+    }
+
+    public Double getRatingAverageByBookId(String bookId) {
+        return repository.findAllByBookId(bookId).stream()
+                .mapToDouble(RatingEntity::getStars)
+                .average()
+                .orElse(0);
     }
 }
