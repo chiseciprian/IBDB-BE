@@ -37,4 +37,20 @@ public class BookService {
         repository.delete(book);
         bookNotifications.notifyBookDeleted(bookId);
     }
+
+    public BookEntity updateBook(BookEntity updatedBook) {
+        BookEntity dbBook = repository.findById(updatedBook.getBookId())
+                .orElseThrow(() -> new ResourceNotFoundException("Book with id " + updatedBook.getBookId() + " is not found"));
+        validator.validateBook(dbBook);
+        replaceBook(dbBook, updatedBook);
+        return repository.save(dbBook);
+    }
+
+    private void replaceBook(BookEntity dbBook, BookEntity updatedBook) {
+        dbBook.setTitle(updatedBook.getTitle());
+        dbBook.setDescription(updatedBook.getDescription());
+        dbBook.setAuthors(updatedBook.getAuthors());
+        dbBook.setGenres(updatedBook.getGenres());
+        dbBook.setPoster(updatedBook.getPoster());
+    }
 }

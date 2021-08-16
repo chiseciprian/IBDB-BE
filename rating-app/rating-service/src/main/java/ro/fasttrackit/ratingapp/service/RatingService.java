@@ -38,8 +38,24 @@ public class RatingService {
         repository.delete(ratingEntity);
     }
 
+    public RatingEntity updateRating(RatingEntity updatedRating) {
+        RatingEntity dbEntity = repository.findById(updatedRating.getRatingId())
+                .orElseThrow(() -> new ResourceNotFoundException("Rating with id " + updatedRating.getRatingId() + " is not found"));
+        ratingValidator.validateRating(dbEntity);
+        replaceRating(dbEntity, updatedRating);
+        return repository.save(dbEntity);
+    }
+
     @Transactional
     public void deleteAllRatingsByBookId(String bookId) {
         repository.deleteAllByBookId(bookId);
+    }
+
+    private void replaceRating(RatingEntity dbEntity, RatingEntity updatedRating) {
+        dbEntity.setUserName(updatedRating.getUserName());
+        dbEntity.setTitle(updatedRating.getTitle());
+        dbEntity.setMessage(updatedRating.getMessage());
+        dbEntity.setDate(new Timestamp(System.currentTimeMillis()).getTime());
+        dbEntity.setStars(updatedRating.getStars());
     }
 }

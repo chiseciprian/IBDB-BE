@@ -31,7 +31,11 @@ public class BookController {
     @PostMapping
     Book addBook(@RequestBody Book book) {
         return mappers.toApi(bookService.addBook(mappers.toDb(book)));
+    }
 
+    @PutMapping
+    Book updateBook(@RequestBody Book book) {
+        return mappers.toApi(bookService.updateBook(mappers.toDb(book)));
     }
 
     @DeleteMapping("{bookId}")

@@ -23,7 +23,11 @@ public class RatingController {
     @PostMapping
     Rating addRating(@RequestBody Rating rating) {
         return mappers.toApi(ratingService.addRating(mappers.toDb(rating)));
+    }
 
+    @PutMapping
+    Rating updateRating(@RequestBody Rating rating) {
+        return mappers.toApi(ratingService.updateRating(mappers.toDb(rating)));
     }
 
     @DeleteMapping("/{ratingId}")
