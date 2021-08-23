@@ -51,6 +51,6 @@ public class BookService {
         dbBook.setDescription(updatedBook.getDescription());
         dbBook.setAuthors(updatedBook.getAuthors());
         dbBook.setGenres(updatedBook.getGenres());
-        dbBook.setPoster(updatedBook.getPoster());
+        dbBook.setCoverId(updatedBook.getCoverId());
     }
 }
