@@ -1,18 +1,17 @@
 package ro.fasttrackit.bookapp.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ro.fasttrackit.bookapp.dto.Book;
-import ro.fasttrackit.bookapp.model.PhotoEntity;
+import ro.fasttrackit.bookapp.dto.Cover;
 import ro.fasttrackit.bookapp.model.mappers.BookMappers;
+import ro.fasttrackit.bookapp.model.mappers.CoverMappers;
 import ro.fasttrackit.bookapp.service.BookService;
-import ro.fasttrackit.bookapp.service.PhotoService;
+import ro.fasttrackit.bookapp.service.CoverService;
 import ro.fasttrackit.exceptions.ResourceNotFoundException;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -20,29 +19,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
-    private final PhotoService photoService;
-    private final BookMappers mappers;
+    private final CoverService coverService;
+    private final BookMappers bookMappers;
+    private final CoverMappers coverMappers;
 
     @GetMapping
     List<Book> getBooks() {
-        return mappers.toApi(bookService.getBooks());
+        return bookMappers.toApi(bookService.getBooks());
     }
 
     @GetMapping("{bookId}")
     Book getBookById(@PathVariable String bookId) {
         return bookService.getBookById(bookId)
-                .map(mappers::toApi)
+                .map(bookMappers::toApi)
                 .orElseThrow(() -> new ResourceNotFoundException("Book with id " + bookId + " is not found"));
     }
 
     @PostMapping
     Book addBook(@RequestBody Book book) {
-        return mappers.toApi(bookService.addBook(mappers.toDb(book)));
+        return bookMappers.toApi(bookService.addBook(bookMappers.toDb(book)));
     }
 
     @PutMapping
     Book updateBook(@RequestBody Book book) {
-        return mappers.toApi(bookService.updateBook(mappers.toDb(book)));
+        return bookMappers.toApi(bookService.updateBook(bookMappers.toDb(book)));
     }
 
     @DeleteMapping("{bookId}")
@@ -51,13 +51,14 @@ public class BookController {
     }
 
     @PostMapping("/cover/add")
-    public PhotoEntity addPhoto(@RequestParam("title") String title, @RequestParam("image") MultipartFile image) throws IOException {
-        return photoService.addPhoto(title, image);
+    public Cover addCover(@RequestParam("title") String title, @RequestParam("image") MultipartFile image) throws IOException {
+        return coverMappers.toApi(coverService.addCover(title, image));
     }
 
     @GetMapping("/cover/{coverId}")
-    public String getPhoto(@PathVariable String coverId) {
-        PhotoEntity photo = photoService.getPhoto(coverId);
-        return Base64.getEncoder().encodeToString(photo.getImage().getData());
+    public Cover getCover(@PathVariable String coverId) {
+        return coverService.getCover(coverId)
+                .map(coverMappers::toApi)
+                .orElseThrow(() -> new ResourceNotFoundException("Cover with id " + coverId + " is not found"));
     }
 }

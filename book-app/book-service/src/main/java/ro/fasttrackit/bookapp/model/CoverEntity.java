@@ -8,12 +8,12 @@ import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("photo")
+@Document("cover")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhotoEntity {
+public class CoverEntity {
     @Id
     private String coverId;
     private String title;
