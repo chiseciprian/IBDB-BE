@@ -23,4 +23,5 @@ public class BookEntity {
     private List<String> authors;
     private List<Genre> genres;
     private String coverId;
+    private boolean addedToReadList;
 }

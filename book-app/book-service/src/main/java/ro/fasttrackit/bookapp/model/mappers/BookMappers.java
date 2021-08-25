@@ -16,6 +16,7 @@ public class BookMappers implements ModelMappers<Book, BookEntity> {
                 .authors(source.getAuthors())
                 .genres(source.getGenres())
                 .coverId(source.getCoverId())
+                .addedToReadList(source.isAddedToReadList())
                 .build();
     }
 
@@ -27,6 +28,7 @@ public class BookMappers implements ModelMappers<Book, BookEntity> {
                 .authors(source.getAuthors())
                 .genres(source.getGenres())
                 .coverId(source.getCoverId())
+                .addedToReadList(source.isAddedToReadList())
                 .build();
     }
 }

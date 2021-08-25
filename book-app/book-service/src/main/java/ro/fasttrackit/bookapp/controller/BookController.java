@@ -35,6 +35,11 @@ public class BookController {
                 .orElseThrow(() -> new ResourceNotFoundException("Book with id " + bookId + " is not found"));
     }
 
+    @GetMapping("/read-list")
+    List<Book> getBooksAddedToReadList() {
+        return bookMappers.toApi(bookService.getBooksAddedToReadList());
+    }
+
     @PostMapping
     Book addBook(@RequestBody Book book) {
         return bookMappers.toApi(bookService.addBook(bookMappers.toDb(book)));

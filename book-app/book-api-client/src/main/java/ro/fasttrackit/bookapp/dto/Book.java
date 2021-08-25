@@ -17,6 +17,7 @@ public class Book {
     private List<String> authors;
     private List<Genre> genres;
     private String coverId;
+    private boolean addedToReadList;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class BookBuilder {

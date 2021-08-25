@@ -21,6 +21,10 @@ public class BookService {
         return repository.findAll();
     }
 
+    public List<BookEntity> getBooksAddedToReadList() {
+        return repository.getAllByAddedToReadListTrue();
+    }
+
     public Optional<BookEntity> getBookById(String bookId) {
         return repository.findById(bookId);
     }
@@ -52,5 +56,6 @@ public class BookService {
         dbBook.setAuthors(updatedBook.getAuthors());
         dbBook.setGenres(updatedBook.getGenres());
         dbBook.setCoverId(updatedBook.getCoverId());
+        dbBook.setAddedToReadList(updatedBook.isAddedToReadList());
     }
 }
