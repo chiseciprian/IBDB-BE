@@ -9,6 +9,7 @@ import ro.fasttrackit.exceptions.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +22,10 @@ public class BookService {
         return repository.findAll();
     }
 
-    public List<BookEntity> getBooksAddedToReadList() {
-        return repository.getAllByAddedToReadListTrue();
+    public List<BookEntity> getBooksAddedToReadList(String username) {
+        return repository.findAll().stream()
+                .filter(bookEntity -> bookEntity.getAddedToReadList().contains(username))
+                .collect(Collectors.toList());
     }
 
     public Optional<BookEntity> getBookById(String bookId) {
@@ -33,6 +36,12 @@ public class BookService {
         newBook.setBookId(null);
         validator.validateBook(newBook);
         return repository.save(newBook);
+    }
+
+    public void buyBook(String username, String bookId) {
+        BookEntity book = repository.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book with id " + bookId + " is not found"));
+        addUserToBook(username, book);
     }
 
     public void deleteBook(String bookId) {
@@ -53,9 +62,20 @@ public class BookService {
     private void replaceBook(BookEntity dbBook, BookEntity updatedBook) {
         dbBook.setTitle(updatedBook.getTitle());
         dbBook.setDescription(updatedBook.getDescription());
+        dbBook.setPrice(updatedBook.getPrice());
         dbBook.setAuthors(updatedBook.getAuthors());
+        dbBook.setUsers(updatedBook.getUsers());
         dbBook.setGenres(updatedBook.getGenres());
         dbBook.setCoverId(updatedBook.getCoverId());
-        dbBook.setAddedToReadList(updatedBook.isAddedToReadList());
+        dbBook.setAddedToReadList(updatedBook.getAddedToReadList());
+    }
+
+    private void addUserToBook(String username, BookEntity book) {
+        List<String> users = book.getUsers();
+        if(!users.contains(username)) {
+            users.add(username);
+            book.setUsers(users);
+            updateBook(book);
+        }
     }
 }

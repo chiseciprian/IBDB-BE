@@ -7,7 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookRepository extends MongoRepository<BookEntity, String> {
-
-    List<BookEntity> getAllByAddedToReadListTrue();
     Optional<BookEntity> findByTitle(String title);
 }

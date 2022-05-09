@@ -13,10 +13,12 @@ public class BookMappers implements ModelMappers<Book, BookEntity> {
                 .bookId(source.getBookId())
                 .title(source.getTitle())
                 .description(source.getDescription())
+                .price(source.getPrice())
                 .authors(source.getAuthors())
+                .users(source.getUsers())
                 .genres(source.getGenres())
                 .coverId(source.getCoverId())
-                .addedToReadList(source.isAddedToReadList())
+                .addedToReadList(source.getAddedToReadList())
                 .build();
     }
 
@@ -25,10 +27,12 @@ public class BookMappers implements ModelMappers<Book, BookEntity> {
                 .bookId(source.getBookId())
                 .title(source.getTitle())
                 .description(source.getDescription())
+                .price(source.getPrice())
                 .authors(source.getAuthors())
+                .users(source.getUsers())
                 .genres(source.getGenres())
                 .coverId(source.getCoverId())
-                .addedToReadList(source.isAddedToReadList())
+                .addedToReadList(source.getAddedToReadList())
                 .build();
     }
 }

@@ -36,13 +36,18 @@ public class BookController {
     }
 
     @GetMapping("/read-list")
-    List<Book> getBooksAddedToReadList() {
-        return bookMappers.toApi(bookService.getBooksAddedToReadList());
+    List<Book> getBooksAddedToReadList(@RequestParam String username) {
+        return bookMappers.toApi(bookService.getBooksAddedToReadList(username));
     }
 
     @PostMapping
     Book addBook(@RequestBody Book book) {
         return bookMappers.toApi(bookService.addBook(bookMappers.toDb(book)));
+    }
+
+    @PostMapping("/buy")
+    void buyBook(@RequestParam String username, @RequestParam String bookId) {
+        bookService.buyBook(username, bookId);
     }
 
     @PutMapping
