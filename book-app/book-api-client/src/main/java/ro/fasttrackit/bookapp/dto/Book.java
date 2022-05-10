@@ -14,11 +14,13 @@ public class Book {
     private String bookId;
     private String title;
     private String description;
+    private double price;
     private List<String> authors;
+    private List<String> users;
     private List<Genre> genres;
     private String coverId;
+    private List<String> addedToReadList;
     private String fileId;
-    private boolean addedToReadList;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class BookBuilder {

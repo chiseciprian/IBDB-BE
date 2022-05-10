@@ -20,9 +20,11 @@ public class BookEntity {
     private String bookId;
     private String title;
     private String description;
+    private double price;
     private List<String> authors;
+    private List<String> users;
     private List<Genre> genres;
     private String coverId;
     private String fileId;
-    private boolean addedToReadList;
+    private List<String> addedToReadList;
 }
