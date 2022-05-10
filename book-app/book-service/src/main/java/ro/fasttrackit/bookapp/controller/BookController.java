@@ -5,14 +5,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ro.fasttrackit.bookapp.dto.Book;
 import ro.fasttrackit.bookapp.dto.Cover;
-import ro.fasttrackit.bookapp.dto.File;
-import ro.fasttrackit.bookapp.model.FileEntity;
+import ro.fasttrackit.bookapp.dto.BookFile;
 import ro.fasttrackit.bookapp.model.mappers.BookMappers;
 import ro.fasttrackit.bookapp.model.mappers.CoverMappers;
-import ro.fasttrackit.bookapp.model.mappers.FileMappers;
+import ro.fasttrackit.bookapp.model.mappers.BookFileMappers;
 import ro.fasttrackit.bookapp.service.BookService;
 import ro.fasttrackit.bookapp.service.CoverService;
-import ro.fasttrackit.bookapp.service.FileService;
+import ro.fasttrackit.bookapp.service.BookFileService;
 import ro.fasttrackit.exceptions.ResourceNotFoundException;
 
 import java.io.IOException;
@@ -24,11 +23,11 @@ import java.util.List;
 public class BookController {
     private final BookService bookService;
     private final CoverService coverService;
-    private final FileService fileService;
+    private final BookFileService bookFileService;
     private final BookMappers bookMappers;
     private final CoverMappers coverMappers;
 
-    private final FileMappers fileMappers;
+    private final BookFileMappers bookFileMappers;
 
     @GetMapping
     List<Book> getBooks() {
@@ -80,13 +79,14 @@ public class BookController {
     }
 
     @PostMapping("/file/add")
-    public String addFile(@RequestParam("title") String title, @RequestParam("file") MultipartFile file) throws IOException {
-        return fileService.addFile(title, file);
+    public BookFile addBookFile(@RequestParam("title") String title, @RequestParam("bookFile") MultipartFile bookFile) throws IOException {
+        return bookFileMappers.toApi(bookFileService.addBookFile(title, bookFile));
     }
 
     @GetMapping("/file/{fileId}")
-    public File getFile(@PathVariable String fileId) throws IOException {
-        FileEntity file = fileService.getFile(fileId);
-        return fileMappers.toApi(file);
+    public BookFile getBookFile(@PathVariable String fileId) {
+        return bookFileService.getBookFile(fileId)
+                .map(bookFileMappers::toApi)
+                .orElseThrow(() -> new ResourceNotFoundException("Book File with id " + fileId + " is not found"));
     }
 }

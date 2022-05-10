@@ -6,17 +6,15 @@ import lombok.Builder;
 import lombok.Value;
 import org.bson.types.Binary;
 
-import java.io.InputStream;
-
 @Value
 @Builder
-@JsonDeserialize(builder = File.FileBuilder.class)
-public class File {
+@JsonDeserialize(builder = BookFile.BookFileBuilder.class)
+public class BookFile {
     private String fileId;
     private String title;
-    private InputStream file;
+    private Binary bookFile;
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class FileBuilder {
+    public static class BookFileBuilder {
     }
 }
