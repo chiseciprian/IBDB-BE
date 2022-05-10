@@ -6,23 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import ro.fasttrackit.bookapp.dto.Genre;
 
-import java.util.List;
+import java.io.InputStream;
 
-@Document("book")
+@Document("file")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookEntity {
+public class FileEntity {
     @Id
-    private String bookId;
-    private String title;
-    private String description;
-    private List<String> authors;
-    private List<Genre> genres;
-    private String coverId;
     private String fileId;
-    private boolean addedToReadList;
+    private String title;
+    private InputStream file;
 }
