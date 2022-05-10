@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import lombok.RequiredArgsConstructor;
+import org.bson.BsonObjectId;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -41,6 +42,7 @@ public class FileService {
     public FileEntity getFile(String id) throws IllegalStateException, IOException {
         GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
         FileEntity fileEntity = new FileEntity();
+        fileEntity.setFileId(((BsonObjectId) file.getId()).getValue().toString());
         fileEntity.setTitle(file.getMetadata().get("title").toString());
         fileEntity.setFile(operations.getResource(file).getInputStream());
         return fileEntity;
