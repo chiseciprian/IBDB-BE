@@ -28,6 +28,12 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
+    public List<BookEntity> getPurchasedBooks(String username) {
+        return repository.findAll().stream()
+                .filter(bookEntity -> bookEntity.getUsers().contains(username))
+                .collect(Collectors.toList());
+    }
+
     public Optional<BookEntity> getBookById(String bookId) {
         return repository.findById(bookId);
     }
