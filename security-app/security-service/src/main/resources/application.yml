@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: security-service
+  profiles:
+    active: local
+  main:
+    allow-bean-definition-overriding: true
