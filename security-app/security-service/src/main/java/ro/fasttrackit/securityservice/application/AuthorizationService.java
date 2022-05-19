@@ -49,7 +49,7 @@ public class AuthorizationService {
     private UserResponseDto convertToUserResponse(UserIdentityResponseDto user) {
         UserResponseDto responseDto = new UserResponseDto();
         responseDto.setEmail(user.getEmail());
-        responseDto.setCnp(user.getUserName());
+        responseDto.setUserName(user.getUserName());
         responseDto.setFirstName(user.getFirstName());
         responseDto.setLastName(user.getLastName());
         responseDto.setRole(user.getRole());
