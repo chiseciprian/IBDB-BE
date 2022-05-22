@@ -42,9 +42,9 @@ public class AccountValidator {
         } else if (request.getLastName() == null) {
             return Optional.of(new ValidationException("Last name cannot be null"));
         } else if (byEmail != null && !byEmail.getId().equals(entity.getId())) {
-            return Optional.of(new ValidationException("There is an account with that email address: " + request.getEmail()));
+            return Optional.of(new ValidationException("There is an account with that email address"));
         } else if (byUserName != null && !byUserName.getId().equals(entity.getId())) {
-            return Optional.of(new ValidationException("There is an account with that username: " + request.getUserName()));
+            return Optional.of(new ValidationException("There is an account with that username"));
         } else {
             return empty();
         }
@@ -62,9 +62,9 @@ public class AccountValidator {
         } else if (request.getPassword() == null) {
             return Optional.of(new ValidationException("Password cannot be nul"));
         } else if (accountRepository.existsAccountEntityByEmail(request.getEmail())) {
-            return Optional.of(new ValidationException("There is an account with that email address: " + request.getEmail()));
+            return Optional.of(new ValidationException("There is an account with that email address"));
         } else if (accountRepository.existsAccountEntityByUserName(request.getUserName())) {
-            return Optional.of(new ValidationException("There is an account with that username: " + request.getUserName()));
+            return Optional.of(new ValidationException("There is an account with that username"));
         } else {
             return empty();
         }

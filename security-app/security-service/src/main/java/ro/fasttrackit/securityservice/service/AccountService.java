@@ -84,7 +84,7 @@ public class AccountService {
             AccountEntity accountEntity = accountRepository.findByEmail(user);
             return checkUserAndReturn(accountEntity, password);
         }
-        throw new BadUserException("Utilizator greșit");
+        throw new BadUserException("Invalid username or password");
     }
 
     private String getEncodedPassword(String password) {
@@ -103,7 +103,7 @@ public class AccountService {
         if (password.equals(getDecodedPassword(accountEntity.getPassword()))) {
             return convert(accountEntity, UserIdentityResponseDto.class);
         }
-        throw new BadUserException("Utilizator greșit");
+        throw new BadUserException("Invalid username or password");
     }
 
     private AccountResponseDto convertAccount(AccountEntity accountEntity) {
