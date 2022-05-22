@@ -1,19 +1,19 @@
-package ro.fasttrackit.securityservice.application;
+package ro.fasttrackit.securityservice.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ro.fasttrackit.securityapiclient.application.AccountServiceApi;
-import ro.fasttrackit.securityapiclient.domain.request.AccountRequestDto;
-import ro.fasttrackit.securityapiclient.domain.response.AccountResponseDto;
-import ro.fasttrackit.securityapiclient.domain.response.UserIdentityResponseDto;
-import ro.fasttrackit.securityapiclient.exception.rest.BadUserException;
-import ro.fasttrackit.securityapiclient.exception.rest.UserAlreadyExistException;
+import ro.fasttrackit.exceptions.BadUserException;
+import ro.fasttrackit.securityapiclient.dto.AccountRequestDto;
+import ro.fasttrackit.securityapiclient.dto.AccountResponseDto;
+import ro.fasttrackit.securityapiclient.dto.AccountUpdateRequestDto;
+import ro.fasttrackit.securityapiclient.dto.UserIdentityResponseDto;
 import ro.fasttrackit.securityservice.config.properties.UserProperties;
-import ro.fasttrackit.securityservice.domain.AccountEntity;
-import ro.fasttrackit.securityservice.infrastructure.AccountRepository;
+import ro.fasttrackit.securityservice.model.AccountEntity;
+import ro.fasttrackit.securityservice.repository.AccountRepository;
+import ro.fasttrackit.securityservice.service.validator.AccountValidator;
 
 import java.util.Base64;
 import java.util.List;
@@ -21,64 +21,61 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class AccountService implements AccountServiceApi {
+public class AccountService {
 
     private final AccountRepository accountRepository;
     private final UserProperties userProperties;
     private final ObjectMapper objectMapper;
     private final ModelMapper modelMapper;
+    private final AccountValidator accountValidator;
 
-    @Override
     public void createAccount(AccountRequestDto request) {
-        if (accountRepository.existsAccountEntityByEmail(request.getEmail())) {
-            throw new UserAlreadyExistException("There is an account with that email address: "
-                    + request.getEmail());
-        }
-
+        accountValidator.validateCreateAccount(request);
         AccountEntity accountEntity = convert(request, AccountEntity.class);
         accountEntity.setPassword(getEncodedPassword(request.getPassword()));
         accountEntity.setRole(userProperties.getRole());
         accountRepository.save(accountEntity);
     }
 
-    @Override
-    public void updateAccount(Long id, AccountRequestDto request) {
+
+    public void updateAccount(Long id, AccountUpdateRequestDto request) {
         AccountEntity accountEntity = accountRepository.findById(id).orElseThrow(NullPointerException::new);
+        accountValidator.validateUpdateAccount(request, accountEntity);
         modelMapper.map(request, accountEntity);
         accountRepository.save(accountEntity);
     }
 
-    @Override
+
     public void changePassword(Long id, String newPassword) {
         AccountEntity accountEntity = accountRepository.findById(id).orElseThrow(NullPointerException::new);
         accountEntity.setPassword(getEncodedPassword(newPassword));
         accountRepository.save(accountEntity);
     }
 
-    @Override
+
     public void deleteAccount(Long id) {
         accountRepository.deleteById(id);
     }
 
-    @Override
+
     public List<AccountResponseDto> getAccounts() {
         List<AccountEntity> accountEntities = accountRepository.findAll();
         return convertAccountToDto(accountEntities);
     }
 
-    @Override
+
     public AccountResponseDto getAccountByEmail(String email) {
         AccountEntity accountEntity = accountRepository.findByEmail(email);
         return convertAccount(accountEntity);
     }
 
-    @Override
+
     public AccountResponseDto getAccountByUserName(String userName) {
         AccountEntity accountEntity = accountRepository.findByUserName(userName);
         return convertAccount(accountEntity);
     }
 
-    @Override
+
     public UserIdentityResponseDto getUserIdentity(String user, String password) {
         if (accountRepository.findByUserName(user) != null) {
             AccountEntity accountEntity = accountRepository.findByUserName(user);

@@ -1,4 +1,4 @@
-package ro.fasttrackit.securityservice.application;
+package ro.fasttrackit.securityservice.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

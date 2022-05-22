@@ -1,4 +1,4 @@
-package ro.fasttrackit.securityapiclient.exception.rest;
+package ro.fasttrackit.exceptions;
 
 public class UserAlreadyExistException extends RuntimeException {
 

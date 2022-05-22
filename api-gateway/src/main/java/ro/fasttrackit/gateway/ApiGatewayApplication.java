@@ -24,6 +24,18 @@ public class ApiGatewayApplication {
                         .uri("http://localhost:9002/ratings"))
                 .route("ratings", r -> r.path("/ratings/**")
                         .uri("http://localhost:9002/ratings/**"))
+
+                .route("security", r -> r.path("/security")
+                        .uri("http://localhost:9005/security"))
+                .route("security", r -> r.path("/security/**")
+                        .uri("http://localhost:9005/security/**"))
+
+                .route("auth", r -> r.path("/auth")
+                        .uri("http://localhost:9005/auth"))
+                .route("auth", r -> r.path("/auth/**")
+                        .uri("http://localhost:9005/auth/**"))
+
+
                 .route("websocket_http_route", r -> r.path("/websocket/**")
                         .uri("http://localhost:9002"))
                 .route("websocket_route", r -> r.path("/websocket")

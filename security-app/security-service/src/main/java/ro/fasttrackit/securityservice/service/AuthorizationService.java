@@ -1,4 +1,4 @@
-package ro.fasttrackit.securityservice.application;
+package ro.fasttrackit.securityservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestHeader;
 import reactor.core.publisher.Mono;
-import ro.fasttrackit.securityapiclient.domain.response.TokenWrapperDto;
-import ro.fasttrackit.securityapiclient.domain.response.UserIdentityResponseDto;
-import ro.fasttrackit.securityapiclient.domain.response.UserResponseDto;
-import ro.fasttrackit.securityapiclient.exception.rest.AuthenticationFailException;
-import ro.fasttrackit.securityapiclient.application.AccountServiceApi;
+import ro.fasttrackit.securityapiclient.dto.TokenWrapperDto;
+import ro.fasttrackit.securityapiclient.dto.UserIdentityResponseDto;
+import ro.fasttrackit.securityapiclient.dto.UserResponseDto;
+import ro.fasttrackit.exceptions.AuthenticationFailException;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -24,7 +23,7 @@ import static org.springframework.security.web.server.ServerHttpBasicAuthenticat
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthorizationService {
 
-    private final AccountServiceApi accountService;
+    private final AccountService accountService;
     private final JwtTokenProvider tokenProvider;
 
     public Mono<TokenWrapperDto> verifyCredentials(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) {

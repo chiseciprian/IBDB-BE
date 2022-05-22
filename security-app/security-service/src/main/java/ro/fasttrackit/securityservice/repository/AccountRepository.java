@@ -1,8 +1,8 @@
-package ro.fasttrackit.securityservice.infrastructure;
+package ro.fasttrackit.securityservice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ro.fasttrackit.securityservice.domain.AccountEntity;
+import ro.fasttrackit.securityservice.model.AccountEntity;
 
 @Repository
 public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
@@ -12,4 +12,6 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
     AccountEntity findByUserName(String userName);
 
     boolean existsAccountEntityByEmail(String email);
+
+    boolean existsAccountEntityByUserName(String userName);
 }

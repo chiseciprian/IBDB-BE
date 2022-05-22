@@ -1,15 +1,11 @@
-package ro.fasttrackit.securityapiclient.domain.response;
+package ro.fasttrackit.securityapiclient.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
-public class AccountResponseDto {
-
-    private Long id;
+public class AccountUpdateRequestDto {
     private String firstName;
     private String lastName;
     private String userName;

@@ -1,4 +1,4 @@
-package ro.fasttrackit.securityservice.domain;
+package ro.fasttrackit.securityservice.model;
 
 import lombok.Getter;
 import lombok.Setter;

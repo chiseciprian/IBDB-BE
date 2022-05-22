@@ -1,4 +1,4 @@
-package ro.fasttrackit.securityapiclient.domain.request;
+package ro.fasttrackit.securityapiclient.dto;
 
 import lombok.Getter;
 import lombok.Setter;
