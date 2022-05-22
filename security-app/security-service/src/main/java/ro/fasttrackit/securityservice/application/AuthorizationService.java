@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestHeader;
 import reactor.core.publisher.Mono;
+import ro.fasttrackit.securityapiclient.application.AuthorizationServiceApi;
 import ro.fasttrackit.securityapiclient.domain.response.TokenWrapperDto;
 import ro.fasttrackit.securityapiclient.domain.response.UserIdentityResponseDto;
 import ro.fasttrackit.securityapiclient.domain.response.UserResponseDto;
@@ -22,11 +23,12 @@ import static org.springframework.security.web.server.ServerHttpBasicAuthenticat
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class AuthorizationService {
+public class AuthorizationService implements AuthorizationServiceApi {
 
     private final AccountServiceApi accountService;
     private final JwtTokenProvider tokenProvider;
 
+    @Override
     public Mono<TokenWrapperDto> verifyCredentials(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) {
         String credentials = extractCredentials(authorization);
         String[] values = credentials.split(":", 2);

@@ -29,6 +29,6 @@ public interface AccountControllerApi {
     @GetMapping(path = "/account-email/{email}/")
     AccountResponseDto getAccountByEmail(@PathVariable String email);
 
-    @GetMapping(path = "/account-cnp/{userName}")
+    @GetMapping(path = "/account-username/{userName}")
     AccountResponseDto getAccountByUserName(@PathVariable String userName);
 }

@@ -67,6 +67,7 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(validFrom)
+                .setExpiration(new Date(currentTimeMillis + 7200000))
                 .signWith(this.secretKey, SignatureAlgorithm.HS512)
                 .compact();
     }

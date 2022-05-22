@@ -14,7 +14,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .antMatcher("/auth/**")
                 .authorizeRequests()
-                .antMatchers("/uo-taxes/**")
+                .antMatchers("/books/**")
                 .authenticated();
     }
 }

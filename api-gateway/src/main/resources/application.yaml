@@ -1,12 +1,14 @@
+server:
+  port: 8080
+
 spring:
   application:
-    name: checkpoints-api-gateway
+    name: api-gateway
   cloud:
     gateway:
-      globalcors:
-#        corsConfigurations:
-#          '[/**]':
-#            allowedOrigins: "http://localhost:4200"
-#            allowedHeaders: "*"
-#            allowedMethods: "*"
-#            allowCredentials: true
+      discovery:
+        locator:
+          enabled: true
+
+jwt:
+  secret: QeThVmYq3t6w9z$C&F)J@NcRfUjXn2r4u7x!A%D*G-KaPdSgVkYp3s6v8y/B?E
