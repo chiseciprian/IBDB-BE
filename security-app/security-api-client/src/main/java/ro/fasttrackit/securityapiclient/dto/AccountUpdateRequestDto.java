@@ -10,4 +10,5 @@ public class AccountUpdateRequestDto {
     private String lastName;
     private String userName;
     private String email;
+    private String role;
 }

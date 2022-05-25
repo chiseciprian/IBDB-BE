@@ -24,8 +24,6 @@ public class BookValidator {
             return Optional.of(new ValidationException("Title cannot be null"));
         } else if (bookEntity.getDescription() == null) {
             return Optional.of(new ValidationException("Description cannot be null"));
-        } else if (bookEntity.getAuthors().size() == 0) {
-            return Optional.of(new ValidationException("Please add an author"));
         } else {
             return empty();
         }

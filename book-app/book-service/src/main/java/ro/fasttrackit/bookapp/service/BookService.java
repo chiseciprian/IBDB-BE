@@ -69,7 +69,6 @@ public class BookService {
         dbBook.setTitle(updatedBook.getTitle());
         dbBook.setDescription(updatedBook.getDescription());
         dbBook.setPrice(updatedBook.getPrice());
-        dbBook.setAuthors(updatedBook.getAuthors());
         dbBook.setUsers(updatedBook.getUsers());
         dbBook.setGenres(updatedBook.getGenres());
         dbBook.setCoverId(updatedBook.getCoverId());

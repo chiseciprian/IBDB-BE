@@ -10,7 +10,6 @@ import ro.fasttrackit.securityapiclient.dto.AccountRequestDto;
 import ro.fasttrackit.securityapiclient.dto.AccountResponseDto;
 import ro.fasttrackit.securityapiclient.dto.AccountUpdateRequestDto;
 import ro.fasttrackit.securityapiclient.dto.UserIdentityResponseDto;
-import ro.fasttrackit.securityservice.config.properties.UserProperties;
 import ro.fasttrackit.securityservice.model.AccountEntity;
 import ro.fasttrackit.securityservice.repository.AccountRepository;
 import ro.fasttrackit.securityservice.service.validator.AccountValidator;
@@ -24,7 +23,6 @@ import java.util.stream.Collectors;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final UserProperties userProperties;
     private final ObjectMapper objectMapper;
     private final ModelMapper modelMapper;
     private final AccountValidator accountValidator;
@@ -33,7 +31,6 @@ public class AccountService {
         accountValidator.validateCreateAccount(request);
         AccountEntity accountEntity = convert(request, AccountEntity.class);
         accountEntity.setPassword(getEncodedPassword(request.getPassword()));
-        accountEntity.setRole(userProperties.getRole());
         accountRepository.save(accountEntity);
     }
 
@@ -113,6 +110,7 @@ public class AccountService {
         accountResponse.setLastName(accountEntity.getLastName());
         accountResponse.setUserName(accountEntity.getUserName());
         accountResponse.setEmail(accountEntity.getEmail());
+        accountResponse.setRole(accountEntity.getRole());
         return accountResponse;
     }
 

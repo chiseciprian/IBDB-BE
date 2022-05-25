@@ -21,7 +21,8 @@ public class BookEntity {
     private String title;
     private String description;
     private double price;
-    private List<String> authors;
+    private String authorUsername;
+    private String authorName;
     private List<String> users;
     private List<Genre> genres;
     private String coverId;
