@@ -47,6 +47,7 @@ public class AuthorizationService {
 
     private UserResponseDto convertToUserResponse(UserIdentityResponseDto user) {
         UserResponseDto responseDto = new UserResponseDto();
+        responseDto.setId(user.getId());
         responseDto.setEmail(user.getEmail());
         responseDto.setUserName(user.getUserName());
         responseDto.setFirstName(user.getFirstName());
