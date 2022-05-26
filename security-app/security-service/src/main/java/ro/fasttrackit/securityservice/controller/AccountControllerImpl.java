@@ -48,7 +48,7 @@ public class AccountControllerImpl {
         return accountService.getAccountByEmail(email);
     }
 
-    @GetMapping(path = "/account-cnp/{userName}")
+    @GetMapping(path = "/account-userName/{userName}")
     public AccountResponseDto getAccountByUserName(@PathVariable String userName) {
         return accountService.getAccountByUserName(userName);
     }

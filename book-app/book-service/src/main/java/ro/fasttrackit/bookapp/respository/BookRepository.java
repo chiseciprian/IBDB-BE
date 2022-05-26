@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface BookRepository extends MongoRepository<BookEntity, String> {
     Optional<BookEntity> findByTitle(String title);
+    List<BookEntity> findAllByAuthorUsername(String authorUsername);
+
 }

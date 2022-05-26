@@ -34,6 +34,10 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
+    public List<BookEntity> getBooksByAuthorUsername(String username) {
+        return repository.findAllByAuthorUsername(username);
+    }
+
     public Optional<BookEntity> getBookById(String bookId) {
         return repository.findById(bookId);
     }
