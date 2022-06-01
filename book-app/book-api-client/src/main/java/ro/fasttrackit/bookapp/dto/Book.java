@@ -13,6 +13,7 @@ import java.util.List;
 public class Book {
     private String bookId;
     private String title;
+    private String bookText;
     private String description;
     private double price;
     private String authorUsername;

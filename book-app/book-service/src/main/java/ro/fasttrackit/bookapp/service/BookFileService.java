@@ -6,9 +6,9 @@ import org.bson.types.Binary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ro.fasttrackit.bookapp.model.BookFileEntity;
-import ro.fasttrackit.bookapp.model.CoverEntity;
 import ro.fasttrackit.bookapp.respository.BookFileRepository;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -18,11 +18,12 @@ public class BookFileService {
 
     private final BookFileRepository bookFileRepository;
 
-    public BookFileEntity addBookFile(String title, MultipartFile file) throws IOException {
-        BookFileEntity cover = new BookFileEntity();
-        cover.setTitle(title);
-        cover.setBookFile(new Binary(BsonBinarySubType.BINARY, file.getBytes()));
-        return bookFileRepository.save(cover);
+
+    public BookFileEntity addBookFile(String title, ByteArrayOutputStream file)  {
+        BookFileEntity fileEntity = new BookFileEntity();
+        fileEntity.setTitle(title);
+        fileEntity.setBookFile(new Binary(BsonBinarySubType.BINARY, file.toByteArray()));
+        return bookFileRepository.save(fileEntity);
     }
 
     public Optional<BookFileEntity> getBookFile(String id) {

@@ -88,11 +88,6 @@ public class BookController {
                 .orElseThrow(() -> new ResourceNotFoundException("Cover with id " + coverId + " is not found"));
     }
 
-    @PostMapping("/file/add")
-    public BookFile addBookFile(@RequestParam("title") String title, @RequestParam("bookFile") MultipartFile bookFile) throws IOException {
-        return bookFileMappers.toApi(bookFileService.addBookFile(title, bookFile));
-    }
-
     @GetMapping("/file/{fileId}")
     public BookFile getBookFile(@PathVariable String fileId) {
         return bookFileService.getBookFile(fileId)
